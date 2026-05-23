@@ -1,4 +1,4 @@
-# Matrix Lively Rust — 矩阵雨动态壁纸
+# Matrix Lively Rust — 一个给lively用的动态壁纸
 
 ![Preview](https://github.com/AMM2034567/matrix-lively-rust/blob/master/public/preview.gif)
 
