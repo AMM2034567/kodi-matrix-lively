@@ -1,0 +1,14 @@
+{
+  "AppVersion": "1.0.0",
+  "Title": "Matrix Lively Rust",
+  "Thumbnail": "thumbnail.jpg",
+  "Preview": "preview.gif",
+  "Desc": "Kodi Matrix Visualization ported to WebGL via Rust+Wasm",
+  "Author": "AMM2034567",
+  "License": "GPL-2.0-or-later",
+  "Contact": "",
+  "Type": 1,
+  "IsAbsolute": false,
+  "FileName": "index.html",
+  "Arguments": "--audio --system-nowplaying"
+}

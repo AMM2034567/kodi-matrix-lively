@@ -1,0 +1,17 @@
+{
+  "name": "matrix-lively-rust",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "npm run build:wasm && vite",
+    "build:wasm": "npx wasm-pack build core --target web --out-dir pkg",
+    "build": "npm run build:wasm && tsc && vite build",
+    "pack": "npm run build && powershell -NoProfile -Command \"Compress-Archive -Path dist/* -DestinationPath matrix-lively-rust.zip -Force\"",
+    "preview": "vite preview"
+  },
+  "devDependencies": {
+    "typescript": "~6.0.2",
+    "vite": "^8.0.12"
+  }
+}

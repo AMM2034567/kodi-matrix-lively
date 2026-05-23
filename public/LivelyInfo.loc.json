@@ -1,0 +1,8 @@
+{
+  "Languages": {
+    "zh-CN": {
+      "Title": "Matrix Lively Rust",
+      "Desc": "Kodi Matrix 可视化效果，通过 Rust+Wasm 移植到 WebGL"
+    }
+  }
+}

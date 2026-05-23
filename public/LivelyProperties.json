@@ -1,0 +1,104 @@
+{
+  "red": {
+    "type": "slider",
+    "value": 51,
+    "min": 0,
+    "max": 255,
+    "step": 1,
+    "text": "Color: Red"
+  },
+  "green": {
+    "type": "slider",
+    "value": 204,
+    "min": 0,
+    "max": 255,
+    "step": 1,
+    "text": "Color: Green"
+  },
+  "blue": {
+    "type": "slider",
+    "value": 255,
+    "min": 0,
+    "max": 255,
+    "step": 1,
+    "text": "Color: Blue"
+  },
+  "rainHighlights": {
+    "type": "slider",
+    "value": 70,
+    "min": 0,
+    "max": 100,
+    "step": 1,
+    "text": "Rain Highlights"
+  },
+  "intensity": {
+    "type": "slider",
+    "value": 1.5,
+    "min": 0.5,
+    "max": 2.5,
+    "step": 0.1,
+    "text": "Brightness Intensity"
+  },
+  "distortion": {
+    "type": "slider",
+    "value": 60,
+    "min": 0,
+    "max": 100,
+    "step": 1,
+    "text": "Distortion Threshold"
+  },
+  "fallSpeed": {
+    "type": "slider",
+    "value": 25,
+    "min": 1,
+    "max": 100,
+    "step": 1,
+    "text": "Rain Fall Speed"
+  },
+  "noiseFluctuation": {
+    "type": "slider",
+    "value": 25,
+    "min": 1,
+    "max": 100,
+    "step": 1,
+    "text": "Noise Fluctuation"
+  },
+  "dotMode": {
+    "type": "checkbox",
+    "value": false,
+    "text": "User-defined pixel size"
+  },
+  "dotSize": {
+    "type": "slider",
+    "value": 3,
+    "min": 1,
+    "max": 8,
+    "step": 0.5,
+    "text": "Pixel Size (smaller = denser)"
+  },
+  "preset": {
+    "type": "dropdown",
+    "value": 0,
+    "items": [
+      "Kodi",
+      "Album",
+      "Rain only",
+      "Rain with waveform",
+      "Rain with waveform envelope",
+      "Clean",
+      "Clean with waveform",
+      "Clean with waveform envelope"
+    ],
+    "text": "Preset"
+  },
+  "crtCurve": {
+    "type": "checkbox",
+    "value": false,
+    "text": "CRT Curvature"
+  },
+  "lowPower": {
+    "type": "checkbox",
+    "value": false,
+    "text": "Low Power Mode"
+  }
+}

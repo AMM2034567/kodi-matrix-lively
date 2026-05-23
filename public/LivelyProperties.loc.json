@@ -1,0 +1,55 @@
+{
+  "Languages": {
+    "zh-CN": {
+      "red": {
+        "text": "颜色: 红"
+      },
+      "green": {
+        "text": "颜色: 绿"
+      },
+      "blue": {
+        "text": "颜色: 蓝"
+      },
+      "rainHighlights": {
+        "text": "雨点高光强度"
+      },
+      "intensity": {
+        "text": "亮度强度"
+      },
+      "distortion": {
+        "text": "扭曲阈值"
+      },
+      "fallSpeed": {
+        "text": "降雨速度"
+      },
+      "noiseFluctuation": {
+        "text": "噪声波动"
+      },
+      "dotMode": {
+        "text": "用户定义的像素大小"
+      },
+      "dotSize": {
+        "text": "像素大小 (越小越密)"
+      },
+      "preset": {
+        "text": "预设",
+        "items": [
+          "Kodi",
+          "专辑封面",
+          "仅下雨",
+          "下雨+波形",
+          "下雨+波形包络",
+          "纯净",
+          "纯净+波形",
+          "纯净+波形包络"
+        ]
+      },
+      "crtCurve": {
+        "text": "CRT 曲面效果"
+      },
+      "lowPower": {
+        "text": "低功率模式"
+      }
+    }
+  }
+}
