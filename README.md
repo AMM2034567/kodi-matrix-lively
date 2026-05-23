@@ -1,30 +1,32 @@
-# Matrix Lively Rust — 矩阵雨动态壁纸
+# Matrix Lively Rust - A dynamic wallpaper for Lively
+
+[简体中文](./README.zh-CN.md)
 
 ![Preview](https://github.com/AMM2034567/matrix-lively-rust/blob/master/public/preview.gif)
 
-Kodi Matrix 可视化插件的 Lively Wallpaper 移植版。
-核心渲染引擎使用 Rust 编写，编译为 WebAssembly，通过 WebGL2 运行。
+A Lively Wallpaper port of the Kodi Matrix visualization addon.
+The core renderer is written in Rust, compiled to WebAssembly, and runs on WebGL2.
 
-> ⚠ **移植说明**：由于 Lively Wallpaper 仅提供 128 频段的频谱数据，而非原始 PCM 音频，因此无法做到 100% 无损移植。具体表现为波形行为合成数据而非真实 PCM 采样，在 waveform 和 envelope 预设中视觉效果与原版略有差异（波形线更平滑而非颗粒感）。其余功能均已完成对齐。
+> ⚠ **Porting note**: Lively Wallpaper only provides 128-band frequency data instead of raw PCM audio, so 100% lossless porting is not possible. The waveform row contains synthesized data rather than real PCM samples, making the waveform and envelope presets slightly smoother than the original. All other features are fully aligned.
 
 ---
 
-## 项目结构
+## Project Structure
 
 ```
 matrix-lively-rust/
-├── core/                          # Rust 核心引擎 (WASM)
+├── core/                          # Rust engine (WASM)
 │   ├── Cargo.toml
 │   ├── src/
-│   │   ├── lib.rs                 # WASM 绑定层
-│   │   └── renderer.rs            # WebGL2 渲染器
-│   └── pkg/                       # wasm-pack 构建输出
-├── src/                           # TypeScript 胶水层
-│   ├── main.ts                    # Lively 接口与渲染循环
+│   │   ├── lib.rs                 # WASM bindings
+│   │   └── renderer.rs            # WebGL2 renderer
+│   └── pkg/                       # wasm-pack output
+├── src/                           # TypeScript glue
+│   ├── main.ts                    # Lively interface & render loop
 │   └── style.css
 ├── public/
 │   ├── index.html
-│   ├── shaders/                   # GLSL 着色器 (与原版相同)
+│   ├── shaders/                   # GLSL shaders (same as original)
 │   │   ├── logo.frag.glsl
 │   │   ├── album.frag.glsl
 │   │   ├── nologo.frag.glsl
@@ -38,61 +40,62 @@ matrix-lively-rust/
 │   │   └── noise.png
 │   ├── LivelyInfo.json
 │   ├── LivelyProperties.json
-│   ├── LivelyInfo.loc.json           # 中文本地化
-│   └── LivelyProperties.loc.json     # 中文本地化
+│   ├── LivelyInfo.loc.json
+│   └── LivelyProperties.loc.json
 ├── package.json
 ├── tsconfig.json
+├── README.md
 └── README.zh-CN.md
 ```
 
-## 技术架构
+## Architecture
 
 ```
 Lively Wallpaper
     │
-    ├── livelyAudioListener()      ← 128 频段频谱数据
-    ├── livelyPropertyListener()   ← 属性变化
-    └── livelyCurrentTrack()       ← 专辑封面
+    ├── livelyAudioListener()      ← 128-bin frequency data
+    ├── livelyPropertyListener()   ← property changes
+    └── livelyCurrentTrack()       ← album art
     │
     ▼
 TypeScript (main.ts)
     │
-    ├── props 状态管理
-    ├── requestAnimationFrame 渲染循环
+    ├── props state management
+    ├── requestAnimationFrame loop
     └── MatrixApp (WASM)
         │
         ▼
     Rust / WASM
-    ├── update_audio()             音频缓冲区
-    ├── update_properties()        属性同步
-    ├── update_album_art()         专辑封面
-    └── render()                   每帧渲染
+    ├── update_audio()             fill audio buffer
+    ├── update_properties()        sync properties
+    ├── update_album_art()         upload album art
+    └── render()                   per-frame draw
             │
             ▼
     MatrixRenderer (WebGL2)
-    ├── build_glsl_header()        生成 GLSL 头
-    ├── Uniform / 纹理绑定
-    └── drawArrays()               绘制全屏四边形
+    ├── build_glsl_header()        generate GLSL header
+    ├── uniforms / texture binding
+    └── drawArrays()               fullscreen quad
 ```
 
-## 构建
+## Build
 
-### 前置要求
+### Prerequisites
 - Rust (wasm32-unknown-unknown target)
 - Node.js
 - wasm-pack
 
-### 命令
+### Commands
 
 ```bash
-# 开发模式
+# Dev server with hot reload
 npm run dev
 
-# 完整构建 (Rust → WASM → TypeScript → Vite)
+# Full build (Rust → WASM → TypeScript → Vite)
 npm run build
 
-# 构建 + 打包 zip (供 Lively Wallpaper 导入)
+# Build + pack zip (ready for Lively Wallpaper)
 npm run pack
 ```
 
-`npm run pack` 会生成 `matrix-lively-rust.zip`，直接拖入 Lively Wallpaper 即可使用。
+`npm run pack` generates `matrix-lively-rust.zip` — drag & drop into Lively Wallpaper.
