@@ -9,7 +9,7 @@ let props = {
     blue: 255,
     rainHighlights: 70,
     intensity: 1.5,
-    distortion: 60,
+    distortion: 95,
     dotSize: 3,
     preset: 0,
     crtCurve: false,

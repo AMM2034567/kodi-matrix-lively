@@ -38,7 +38,7 @@ impl Default for Props {
             color: [51.0 / 255.0, 204.0 / 255.0, 255.0 / 255.0],
             rain_highlights: 70.0 * 0.016,
             intensity: 1.5,
-            distort_threshold: 0.3,
+            distort_threshold: 0.475,
             dot_size: 4.0,
             crt_curve: 0.0,
             fall_speed: 0.25,

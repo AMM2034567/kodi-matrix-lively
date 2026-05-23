@@ -41,7 +41,7 @@
   },
   "distortion": {
     "type": "slider",
-    "value": 60,
+    "value": 95,
     "min": 0,
     "max": 100,
     "step": 1,
