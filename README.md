@@ -1,4 +1,4 @@
-# Matrix Lively Rust
+# Matrix Lively Rust - A dynamic wallpaper for Lively
 
 [简体中文](./README.zh-CN.md)
 
