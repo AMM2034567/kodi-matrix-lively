@@ -1,5 +1,7 @@
 # Matrix Lively Rust — 矩阵雨动态壁纸
 
+![Preview](https://github.com/AMM2034567/matrix-lively-rust/blob/master/public/preview.gif)
+
 Kodi Matrix 可视化插件的 Lively Wallpaper 移植版。
 核心渲染引擎使用 Rust 编写，编译为 WebAssembly，通过 WebGL2 运行。
 
