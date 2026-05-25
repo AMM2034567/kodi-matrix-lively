@@ -55,8 +55,8 @@ impl MatrixApp {
     //     at frequencies high enough to avoid visible flicker (> 60 Hz).
     #[wasm_bindgen]
     pub fn update_audio(&mut self, frequency_data: &[f32], time: f32) {
-        const SMOOTH: f32 = 0.45;      // per-bin EMA (C++ SMOOTHING_TIME_CONSTANT=0.5)
-        const BAND_SMOOTH: f32 = 0.3;  // band-energy EMA (light smoothing only)
+        const SMOOTH: f32 = 0.3;       // per-bin EMA — lower = faster response
+        const BAND_SMOOTH: f32 = 0.15;  // band-energy EMA — lower = less lag
 
         // Step 1 — EMA smooth raw bins
         for i in 0..128 {
@@ -92,15 +92,18 @@ impl MatrixApp {
         let phase = time as f64 * 30.0;
         let composite = (self.smooth_bands[0] + self.smooth_bands[1] + self.smooth_bands[2]) / 3.0
                         + self.smooth_bands[3] * 0.5;
-        let amp = composite.min(1.0) * 0.5; // full range at loud: ±0.5
+        let amp = composite.min(1.0) * 0.5;
 
         for i in 0..512 {
             let t = i as f32 / 512.0;
             self.audio_buffer[i] = (self.smoothed[i] * 255.0).clamp(0.0, 255.0) as u8;
 
-            // Single sine at each position → pixel values vary smoothly across x,
-            // amplitude scales with audio → never clips at extremes.
-            let s = (phase * 8.0 + t as f64 * 50.0).sin() as f32 * amp;
+            // Pseudo-random noise (sin hash at two frequencies) mimics real PCM's
+            // sample-to-sample randomness, making the waveform look less "smooth"
+            // and therefore less visually intrusive in waveform/envelope presets.
+            let raw = (t as f64 * 10000.0 + phase * 100.0).sin() * 100000.0;
+            let noise = (raw - raw.floor()) as f32; // 0..1
+            let s = (noise * 2.0 - 1.0) * amp;
             self.audio_buffer[i + 512] = ((128.0 + s * 255.0).clamp(0.0, 255.0)) as u8;
         }
 

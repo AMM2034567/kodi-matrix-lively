@@ -38,7 +38,7 @@ impl Default for Props {
             color: [51.0 / 255.0, 204.0 / 255.0, 255.0 / 255.0],
             rain_highlights: 70.0 * 0.016,
             intensity: 1.5,
-            distort_threshold: 0.475,
+            distort_threshold: 0.25,
             dot_size: 4.0,
             crt_curve: 0.0,
             fall_speed: 0.25,
@@ -378,20 +378,23 @@ vec2 getUV() {
                 self.audio_dirty = false;
             }
 
-            // ── 3. Album animation (C++: inside m_needsUpload, uses REAL time) ─
-            //     C++ initialises m_lastAlbumChange=0, first frame sets delta=(t-0)*0.6
-            //     so fade-in starts from zero smoothly.  First frame also sets
-            //     album position to (0,0,2.0).
+            // ── 3. Album animation ───────────────────────────────────────────
+            //     Position: iAlbumPosition.xy = offset, iAlbumPosition.z = scale.
+            //     C++ uses z=2.0 which makes the album oversized; any offset > 0.2
+            //     clips part of it.  We use z=1.0 + small offset range so the
+            //     album is always comfortably visible on screen.
             if self.album_first_frame {
                 self.album_first_frame = false;
-                uni_3f(&self.gl, &self.u.i_album_position, 0.0, 0.0, 2.0);
+                self.album_x = 0.5;
+                self.album_y = 0.5;
+                uni_3f(&self.gl, &self.u.i_album_position, 0.5, 0.5, 2.0);
             }
 
             if self.album_changed {
                 self.last_album_change = time - 0.01;
-                self.album_x = ((time * 1234.0) % 1.0)
-                    * ((self.width as f32) / (self.height as f32) + 1.0) - 1.0;
-                self.album_y = (time * 7654.0) % 1.0;
+                let r = (time * 1234.0).sin() * 10000.0;
+                self.album_x = r.fract() * 0.4 + 0.3;
+                self.album_y = (r * 7654.0).sin().fract() * 0.3 + 0.35;
                 self.album_changed = false;
             }
 
@@ -402,9 +405,9 @@ vec2 getUV() {
                    f32::max((d - 2.0).sin(), 0.0) * 0.7);
 
             if time - self.last_album_change >= 10.0 {
-                self.album_x = ((time * 1234.0) % 1.0)
-                    * ((self.width as f32) / (self.height as f32) + 1.0) - 1.0;
-                self.album_y = (time * 7654.0) % 1.0;
+                let r = (time * 1234.0).sin() * 10000.0;
+                self.album_x = r.fract() * 0.4 + 0.3;
+                self.album_y = (r * 7654.0).sin().fract() * 0.3 + 0.35;
                 self.last_album_change = time;
             }
             uni_3f(&self.gl, &self.u.i_album_position, self.album_x, self.album_y, 2.0);
