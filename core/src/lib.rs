@@ -60,7 +60,7 @@ impl MatrixApp {
 
         // Step 1 — EMA smooth raw bins
         for i in 0..128 {
-            let raw = if i < frequency_data.len() { frequency_data[i] } else { 0.0 };
+            let raw = if i < frequency_data.len() { frequency_data[i] * 1.5 } else { 0.0 };
             for j in 0..4 {
                 let idx = i * 4 + j;
                 if idx < 512 {
